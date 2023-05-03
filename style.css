@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
+
+:root{
+    --primary: #54C2FE;
+    --light: #F0F9FF;
+    --green: #68BB79;
+    --dark: #1A1A1A;
+    --dark-grey: #4F4F4F;  
+    --grey: #A4A4A4;
+    
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body {
+    background: var(--light);
+    color: var(--dark);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+input, select, textarea {
+    font-size: 1.025rem;
+    padding: 5px 10px;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark-grey);
+}
+
+button {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 
+        HEADER
+*/
+
+.header {
+    background: var(--primary);
+    color: #FFF;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 20px;
+}
+
+.date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.month-year {
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+}
+
+.search-box {
+    background-color: #FFF;
+    height: 35px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+#select-progress {
+    height: 35px;
+    border-radius: 20px;
+    padding-left: 10px;
+    outline: none;
+    border: none;
+    padding-right: 15px;
+}
+
+.search-box > i {
+    color: var(--grey);
+}
+
+.search-box > input {
+    flex: 1;
+    padding-left: 10px;
+    outline: none;
+    border: none;
+}
+
+#add-btn {
+    background-color: #FFF;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+#add-btn > i{
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+/* 
+        TODO LIST
+*/
+.todo-list {
+    background-color: #FFF;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.todo-item {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    padding: 15px 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.todo-item p {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+#checkbox{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    align-self: center;
+    cursor: pointer;
+}
+
+#checkbox .fa-check {
+    color: #fff;
+    font-size: 1.2rem;
+    position: relative;
+    top: 5px;
+    left: 5px;
+}
+
+.todo-item.complete #checkbox {
+    background-color: #50dd67;
+    border: 1px solid #50dd67;
+}
+
+.todo-item.complete {
+    color: #c1c1c1;
+}
+
+.due-date, .category{
+    font-size: 0.8rem;
+}
+
+.todo-item .actions {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.fa-clock, .fa-user {
+    color: var(--primary);
+    padding-right: 5px;
+}
+
+/* 
+        MODAL
+*/
+
+.modal {
+    width: 500px;
+    margin: 10px auto;
+    color: black;
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: var(--dark-grey);
+}
+
+.modal input, select, textarea {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+#submit-btn {
+    background-color: var(--primary);
+}
+
+#cancel-btn {
+    background-color: var(--dark-grey);
+}
+
+.modal-cover {
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+}
