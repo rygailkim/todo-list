@@ -100,6 +100,31 @@ const renderTodos = () => {
     }
 }
 
+/*
+        ADD TO DO ITEM
+*/
+
+addTodo.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    let title = document.querySelector('#title').value;
+    let dueDate = document.querySelector('#due-date').value;
+    let category = document.querySelector('#category').value;
+    let description = document.querySelector('#description').value;
+
+    let form = document.querySelector('#add-form');
+    
+    let temp = {"title": title, "date": dueDate, "category": category, "description:": description, "isComplete": false};
+
+    todoItems.push(temp);
+
+    listfresher();
+    addModal.classList.add('hidden');
+    modalCover.classList.add('hidden');
+
+    form.reset();
+});
+
 window.onload = () => {
     renderTodos();
 }
