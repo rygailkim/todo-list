@@ -158,9 +158,14 @@ button:hover {
     border-bottom: 1px solid lightgrey;
 }
 
+.todo-item:last-of-type {
+    border-bottom: 0;
+}
+
 .todo-item p {
     font-weight: 600;
     font-size: 1.2rem;
+    cursor: pointer;
 }
 
 #checkbox{

@@ -1,5 +1,22 @@
 
 /*
+        DATE
+*/
+const months = [ "January", "February", "March", "April", "May", "June", 
+"July", "August", "September", "October", "November", "December" ];
+
+let now = new Date();
+
+let today = now.getDate();
+let month = now.getMonth();
+let year = now.getFullYear();
+
+document.querySelector('#day').innerHTML = today;
+document.querySelector('#month').innerHTML = months[month];
+document.querySelector('#year').innerHTML = year;
+
+
+/*
         MODAL WINDOW
 */
 
@@ -19,7 +36,70 @@ cancelBtn.addEventListener('click', () => {
     modalCover.classList.add('hidden');
 });
 
+modalCover.addEventListener('click', () => {
+    addModal.classList.add('hidden');
+    modalCover.classList.add('hidden');
+});
+
 addBtn.addEventListener('click', () => {
     addModal.classList.remove('hidden');
     modalCover.classList.remove('hidden');
 });
+
+/*
+        RENDER TO DO LIST
+*/
+
+const todoList = document.querySelector('#todo-list');
+const addTodo = document.querySelector('#submit-btn');
+
+let todoItems = [
+    {"title": "task 1", "date": "2021-01-01", "category": "personal", "description:": "lorem ipsum dolor sit amet", "isComplete": false},
+    {"title": "task 2", "date": "2021-01-01", "category": "work", "description:": "lorem ipsum dolor sit amet", "isComplete": false},
+    {"title": "task 3", "date": "2021-01-01", "category": "school", "description:": "lorem ipsum dolor sit amet", "isComplete":  true},
+];
+
+const complete = (i) => {
+    todoItems[i].isComplete = !todoItems[i].isComplete;
+    listfresher();
+}
+
+const listfresher = () => {
+    todoList.innerHTML = '';
+    renderTodos();
+}
+
+const renderTodos = () => {
+    for (i in todoItems)
+    {
+        let item = todoItems[i];
+        
+        let template = 
+        `<div class="todo-item ${item.isComplete ? 'complete' : ''}">
+        <span id="checkbox" onClick="complete(${i})">${item.isComplete ? '<i class="fa fa-check"></i>' : ''}</span>
+        
+        <div class="todo-content">
+            <p>${item.title}</p>
+            <div class="due-date">
+                <i class="fa fa-clock"></i>
+                <span id="due-date">${item.date}</span>
+            </div>
+            <div class="category">
+                <i class="fa fa-user"></i>
+                <span id="category">${item.category}</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <div class="edit"><i class="fa fa-pen"></i></div>
+            <div class="delete"><i class="fa fa-trash"></i></div>
+        </div>
+    </div>`;
+
+    todoList.insertAdjacentHTML('beforeend', template);
+    }
+}
+
+window.onload = () => {
+    renderTodos();
+}
