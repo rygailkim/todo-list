@@ -53,11 +53,8 @@ addBtn.addEventListener('click', () => {
 const todoList = document.querySelector('#todo-list');
 const addTodo = document.querySelector('#submit-btn');
 
-let todoItems = [
-    {"title": "task 1", "date": "2021-01-01", "category": "personal", "description:": "lorem ipsum dolor sit amet", "isComplete": false},
-    {"title": "task 2", "date": "2021-01-01", "category": "work", "description:": "lorem ipsum dolor sit amet", "isComplete": false},
-    {"title": "task 3", "date": "2021-01-01", "category": "school", "description:": "lorem ipsum dolor sit amet", "isComplete":  true},
-];
+
+let todoItems = [];
 
 const complete = (i) => {
     todoItems[i].isComplete = !todoItems[i].isComplete;
@@ -125,6 +122,35 @@ addTodo.addEventListener('click', function(event) {
     form.reset();
 });
 
+const addToLocalStorage = async() => {
+    let localData = await localStorage.getItem('localTodoItems');
+
+    let data = JSON.parse(localData);
+
+    if (localData.length > 0) {
+        todoItems = data;
+    }
+
+    listfresher();
+}
+
+/*
+        DELETE TO DO ITEM
+*/
+
+let deleteTodo = document.querySelectorAll('.delete');
+
+
+/*
+        LOCAL STORAGE
+*/
+
+window.addEventListener('beforeunload', function(e) {
+    let data = JSON.stringify(todoItems);
+    localStorage.setItem('localTodoItems', data);
+})
+
 window.onload = () => {
+    addToLocalStorage();
     renderTodos();
 }
