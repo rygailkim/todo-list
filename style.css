@@ -245,7 +245,7 @@ button:hover {
     margin-bottom: 10px;
 }
 
-#submit-btn {
+#submit-btn, #save-btn {
     background-color: var(--primary);
 }
 

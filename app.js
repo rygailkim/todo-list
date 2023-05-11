@@ -4,25 +4,27 @@ window.addEventListener('load', () => {
 
     todos = JSON.parse(localStorage.getItem('todos')) || [];
     todoList = document.querySelector("#todo-list");
-    const todoForm = document.querySelector('#add-form');
-    const submitBtn = document.querySelector('#submit-btn'); 
+    todoForm = document.querySelector('#add-form');
+    submitBtn = document.querySelector('#submit-btn'); 
+    saveBtn = document.querySelector('#save-btn'); 
 
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
 
-        let title = document.querySelector('#title').value;
-        let dueDate = document.querySelector('#due-date').value;
-        let category = document.querySelector('#category').value;
-        let description = document.querySelector('#description').value;
+        title = document.querySelector('#title');
+        dueDate = document.querySelector('#date');
+        category = document.querySelector('#category');
+        description = document.querySelector('#description');
 
         const todo = {
-            "title": title,
-            "date": dueDate,
-            "category": category,
-            "description:": description,
+            "title": title.value,
+            "date": dueDate.value,
+            "category": category.value,
+            "description": description.value,
             "done": false,
             "createdAt": new Date().getTime()
         };
+
 
         console.log(todo);
 
@@ -31,8 +33,6 @@ window.addEventListener('load', () => {
         localStorage.setItem('todos', JSON.stringify(todos));
 
         listRefresher();
-
-        todoForm.reset();
 
         addModal.classList.add('hidden');
         modalCover.classList.add('hidden');
@@ -56,7 +56,7 @@ function displayTodos() {
                 <p>${item.title}</p>
                 <div class="due-date">
                     <i class="fa fa-clock"></i>
-                    <span id="due-date">${item.date}</span>
+                    <span id="date">${item.date}</span>
                 </div>
                 <div class="category">
                     <i class="fa fa-user"></i>
@@ -74,9 +74,9 @@ function displayTodos() {
 
     }
 
-    activateSelectListeners();
     activateDeleteListeners();
     activateEditListeners();
+
 }
 
 const complete = (i) => {
@@ -88,40 +88,6 @@ const complete = (i) => {
 const listRefresher = () => {
     todoList.innerHTML = '';
     displayTodos();
-}
-
-/*
-        SELECT TO DO ITEM
-*/
-
-function activateSelectListeners() {
-    let item = document.querySelectorAll('.todo-content');
-    item.forEach((item, i) => {
-        item.addEventListener('click', () => {selectItem(i)})
-    });
-}
- 
-function selectItem(i) { 
-    modalTitle.innerHTML = '';
-
-    let title = document.querySelector('#title');
-    title.value = todos[i].title;
-    title.disabled = true;
-
-    let dueDate = document.querySelector('#due-date');
-    dueDate.value = todos[i].date;
-    dueDate.disabled = true;
-
-    let category = document.querySelector('#category');
-    category.value = todos[i].category;
-    category.disabled = true;
-
-    let description = document.querySelector('#description');
-    description.value = todos[i].description;
-    description.disabled = true;
-
-    addModal.classList.remove('hidden');
-    modalCover.classList.remove('hidden');
 }
 
 /*
@@ -148,12 +114,37 @@ function deleteItem(i) {
 function activateEditListeners() {
     let editBtn = document.querySelectorAll('.edit-btn');
     editBtn.forEach((eb, i) => {
-        eb.addEventListener('click', () => {editItem(i)})
+        eb.addEventListener('click', () => {editItem(i)});
     })
 }
 
-function editItem() {
+function editItem(i) {
+    modalTitle.innerHTML = 'Edit Item';
+    addModal.classList.remove('hidden');
+    modalCover.classList.remove('hidden');
 
+    saveBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+    cancelBtn.classList.remove('hidden');
+
+    title.value = todos[i].title;
+    date.value = todos[i].dueDate;
+    category.value = todos[i].category;
+    description.value = todos[i].description;
+
+    saveBtn.addEventListener('click', () => {
+        updateItem(i);
+    })
+}
+
+function updateItem(i){
+    todos[i].title = title.value;
+    todos[i].dueDate = date.value;
+    todos[i].category = category.value;
+    todos[i].description = description.value;
+
+    localStorage.setItem('todos', JSON.stringify(todos));
+    listRefresher();
 }
 
 /*
@@ -185,7 +176,7 @@ function displayModal() {
     modalCover = document.querySelector('.modal-cover');
 
     const closeBtn = document.querySelector('#close-btn');
-    const cancelBtn = document.querySelector('#cancel-btn');
+    cancelBtn = document.querySelector('#cancel-btn');
     const addBtn = document.querySelector('#add-btn');
 
     closeBtn.addEventListener('click', () => {
@@ -204,13 +195,17 @@ function displayModal() {
     });
 
     addBtn.addEventListener('click', () => {
+        todoForm.reset();
+
         modalTitle.innerHTML = 'Add Item';
         addModal.classList.remove('hidden');
         modalCover.classList.remove('hidden');
+
+        submitBtn.classList.remove('hidden');
+        cancelBtn.classList.remove('hidden');
+        saveBtn.classList.add('hidden');
     });
 }
-
-
 
 // const itemsArray = localStorage.getItem("items" ? JSON.parse(localStorage.getItem("items")) : []);
 
